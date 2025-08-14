@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="id" data-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Affilio — Dasbor Afiliasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/workspace/assets/css/styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar" aria-label="Sidebar navigasi">
+        <div class="sidebar__header">
+          <a class="brand" href="#/dashboard" aria-label="Beranda">
+            <span class="brand__logo" aria-hidden="true">A</span>
+            <span class="brand__name">Affilio</span>
+          </a>
+          <button class="icon-btn sidebar__close" id="sidebarCloseBtn" aria-label="Tutup menu">✕</button>
+        </div>
+
+        <nav class="nav" aria-label="Menu utama">
+          <a class="nav__item" data-route="/dashboard" href="#/dashboard">Ikhtisar</a>
+          <a class="nav__item" data-route="/campaigns" href="#/campaigns">Kampanye</a>
+          <a class="nav__item" data-route="/links" href="#/links">Tautan Afiliasi</a>
+          <a class="nav__item" data-route="/payouts" href="#/payouts">Pembayaran</a>
+          <a class="nav__item" data-route="/reports" href="#/reports">Laporan</a>
+          <a class="nav__item" data-route="/referrals" href="#/referrals">Rujukan</a>
+          <a class="nav__item" data-route="/assets" href="#/assets">Materi Promosi</a>
+          <a class="nav__item" data-route="/notifications" href="#/notifications">Notifikasi</a>
+
+          <details class="nav__group" data-group="settings">
+            <summary class="nav__item nav__item--summary" role="button" aria-expanded="false">Pengaturan</summary>
+            <div class="nav__sub">
+              <a class="nav__subitem" data-route="/settings/profile" href="#/settings/profile">Profil</a>
+              <a class="nav__subitem" data-route="/settings/payments" href="#/settings/payments">Pembayaran</a>
+              <a class="nav__subitem" data-route="/settings/security" href="#/settings/security">Keamanan</a>
+            </div>
+          </details>
+
+          <a class="nav__item" data-route="/support" href="#/support">Bantuan</a>
+        </nav>
+
+        <div class="sidebar__footer">
+          <div class="user">
+            <div class="avatar" aria-hidden="true">AA</div>
+            <div class="user__meta">
+              <div class="user__name">Alex Affiliate</div>
+              <div class="user__id">ID: AFF-23918</div>
+            </div>
+            <button class="icon-btn" id="userMenuBtn" aria-label="Menu pengguna">⋯</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main" id="main">
+        <header class="topbar">
+          <button class="icon-btn" id="hamburgerBtn" aria-label="Buka menu">☰</button>
+          <div class="topbar__search">
+            <input id="searchInput" type="search" placeholder="Cari…" aria-label="Cari" />
+          </div>
+          <div class="topbar__actions">
+            <button class="pill-btn" id="createLinkBtn">+ Buat Tautan</button>
+            <button class="icon-btn" id="themeToggleBtn" aria-label="Ubah tema">🌓</button>
+            <button class="icon-btn" id="notifBtn" aria-label="Notifikasi">🔔<span class="dot" aria-hidden="true"></span></button>
+          </div>
+        </header>
+
+        <section id="content" class="content" tabindex="-1" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <!-- Views -->
+    <template id="view-dashboard">
+      <div class="grid cards">
+        <div class="card">
+          <div class="card__title">Pendapatan Hari Ini</div>
+          <div class="card__value" data-animate="4290000">Rp 0</div>
+          <div class="card__delta is-up">+12% vs kemarin</div>
+        </div>
+        <div class="card">
+          <div class="card__title">Klik</div>
+          <div class="card__value" data-animate="12843">0</div>
+          <div class="card__delta is-up">+5.4%</div>
+        </div>
+        <div class="card">
+          <div class="card__title">Konversi</div>
+          <div class="card__value" data-animate="623">0</div>
+          <div class="card__delta is-down">-1.2%</div>
+        </div>
+        <div class="card">
+          <div class="card__title">EPC</div>
+          <div class="card__value">Rp 3.250</div>
+          <div class="card__delta is-up">+0.8%</div>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <div class="panel">
+          <div class="panel__header">
+            <h2>Kinerja 7 Hari</h2>
+            <select id="chartRange">
+              <option value="7">7 hari</option>
+              <option value="30">30 hari</option>
+            </select>
+          </div>
+          <canvas id="miniChart" height="120" aria-label="Grafik kinerja" role="img"></canvas>
+        </div>
+        <div class="panel">
+          <div class="panel__header">
+            <h2>Tautan Cepat</h2>
+          </div>
+          <div class="quicklink">
+            <label for="refLink">Tautan afiliasi</label>
+            <div class="input-group">
+              <input id="refLink" type="text" value="https://domainmu.com/?ref=AFF-23918" readonly />
+              <button class="pill-btn" data-copy="#refLink">Salin</button>
+            </div>
+            <div class="muted">Gunakan tautan ini untuk melacak komisi.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__header">
+          <h2>Aktivitas Terbaru</h2>
+          <button class="link-btn" id="refreshActivityBtn">Muat ulang</button>
+        </div>
+        <div id="activityList" class="table">
+          <div class="table__row table__row--head">
+            <div>Waktu</div>
+            <div>Jenis</div>
+            <div>Kampanye</div>
+            <div>Nilai</div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template id="view-campaigns">
+      <div class="panel">
+        <div class="panel__header">
+          <h2>Semua Kampanye</h2>
+          <button class="pill-btn" id="newCampaignBtn">+ Kampanye</button>
+        </div>
+        <div id="campaignsList" class="cards cards--list"></div>
+      </div>
+    </template>
+
+    <template id="view-links">
+      <div class="panel">
+        <div class="panel__header">
+          <h2>Tautan Afiliasi</h2>
+          <button class="pill-btn" id="generateLinkBtn">+ Buat tautan</button>
+        </div>
+        <div class="table" id="linksTable">
+          <div class="table__row table__row--head">
+            <div>Tautan</div>
+            <div>Kampanye</div>
+            <div>Klik</div>
+            <div>Konversi</div>
+            <div>Aksi</div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template id="view-payouts">
+      <div class="panel">
+        <div class="panel__header"><h2>Pembayaran</h2></div>
+        <div class="table">
+          <div class="table__row table__row--head">
+            <div>Tanggal</div>
+            <div>Metode</div>
+            <div>Status</div>
+            <div>Jumlah</div>
+          </div>
+          <div class="table__row"><div>12-08-2025</div><div>Bank Transfer</div><div class="badge is-success">Sukses</div><div>Rp 5.250.000</div></div>
+          <div class="table__row"><div>28-07-2025</div><div>Bank Transfer</div><div class="badge is-success">Sukses</div><div>Rp 4.910.000</div></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="view-reports">
+      <div class="panel">
+        <div class="panel__header"><h2>Laporan</h2></div>
+        <p class="muted">Unduh laporan kinerja dalam format CSV.</p>
+        <div class="actions">
+          <button class="pill-btn" id="exportCsvBtn">Ekspor CSV</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="view-referrals">
+      <div class="panel">
+        <div class="panel__header"><h2>Rujukan</h2></div>
+        <div class="table">
+          <div class="table__row table__row--head">
+            <div>Pengguna</div>
+            <div>Email</div>
+            <div>Status</div>
+            <div>Komisi</div>
+          </div>
+          <div class="table__row"><div>Sarah</div><div>sarah@mail.com</div><div class="badge is-success">Aktif</div><div>Rp 120.000</div></div>
+          <div class="table__row"><div>Hadi</div><div>hadi@mail.com</div><div class="badge is-warning">Tertunda</div><div>Rp 80.000</div></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="view-assets">
+      <div class="panel">
+        <div class="panel__header"><h2>Materi Promosi</h2></div>
+        <div class="grid cards">
+          <div class="card card--asset"><div class="asset-thumb">Banner 728x90</div><button class="pill-btn" data-copy-text="<a href='https://domainmu.com/?ref=AFF-23918'><img src='banner728.jpg' alt='Banner'></a>">Salin Kode</button></div>
+          <div class="card card--asset"><div class="asset-thumb">Banner 300x250</div><button class="pill-btn" data-copy-text="<a href='https://domainmu.com/?ref=AFF-23918'><img src='banner300.jpg' alt='Banner'></a>">Salin Kode</button></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="view-notifications">
+      <div class="panel">
+        <div class="panel__header"><h2>Notifikasi</h2></div>
+        <ul class="list" id="notifList"></ul>
+      </div>
+    </template>
+
+    <template id="view-settings-profile">
+      <div class="panel">
+        <div class="panel__header"><h2>Profil</h2></div>
+        <form class="form" id="profileForm">
+          <label>Nama
+            <input type="text" name="name" value="Alex Affiliate" />
+          </label>
+          <label>Email
+            <input type="email" name="email" value="alex@affilio.com" />
+          </label>
+          <div class="actions">
+            <button class="pill-btn" type="submit">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </template>
+
+    <template id="view-settings-payments">
+      <div class="panel">
+        <div class="panel__header"><h2>Setelan Pembayaran</h2></div>
+        <form class="form" id="paymentsForm">
+          <label>Bank
+            <input type="text" name="bank" placeholder="Nama Bank" />
+          </label>
+          <label>Nomor Rekening
+            <input type="text" name="account" placeholder="1234567890" />
+          </label>
+          <div class="actions">
+            <button class="pill-btn" type="submit">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </template>
+
+    <template id="view-settings-security">
+      <div class="panel">
+        <div class="panel__header"><h2>Keamanan</h2></div>
+        <form class="form" id="securityForm">
+          <label>Kata sandi baru
+            <input type="password" name="password" />
+          </label>
+          <label>Konfirmasi kata sandi
+            <input type="password" name="password2" />
+          </label>
+          <div class="actions">
+            <button class="pill-btn" type="submit">Perbarui</button>
+          </div>
+        </form>
+      </div>
+    </template>
+
+    <template id="view-support">
+      <div class="panel">
+        <div class="panel__header"><h2>Bantuan</h2></div>
+        <p>Butuh bantuan? Hubungi kami di <a href="mailto:support@affilio.com">support@affilio.com</a>.</p>
+      </div>
+    </template>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="/workspace/assets/js/main.js" defer></script>
+  </body>
+</html>
