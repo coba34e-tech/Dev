@@ -101,3 +101,62 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+## user_problem_statement: "Build powerful-SEO homepage afiliasi dengan sidebar dashboard interaktif, simpel, modern, responsif."
+
+## backend:
+  - task: "Design API contracts & models (products/campaigns/coupons/utm/clicks/metrics/export)"
+    implemented: false
+    working: "NA"
+    file: "/app/contracts.md"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Belum dibuat, akan dibuat setelah konfirmasi user."
+
+## frontend:
+  - task: "Landing + Dashboard mock (nav, products CRUD lokal, campaigns, coupons, utm, export csv)"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Dashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "UI responsif, menggunakan shadcn + lucide, data mock localStorage."
+  - task: "SEO meta + OG/Twitter + JSON-LD + font"
+    implemented: true
+    working: true
+    file: "/app/frontend/public/index.html"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Tambah meta, OG/Twitter, JSON-LD (WebSite/Organization/Breadcrumb), font Plus Jakarta Sans." 
+
+## metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: true
+
+## test_plan:
+  current_focus:
+    - "Uji navigasi Home -> Dashboard"
+    - "Uji interaksi: tambah produk/kampanye/kupon, filter pencarian, copy URL, ekspor CSV"
+    - "Uji UTM Builder membuat link dan tersimpan"
+    - "Cek presence SEO tags utama di head"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+## agent_communication:
+  - agent: "main"
+    message: "Frontend mock + SEO sudah siap. Mohon testing otomatis UI utama dan verifikasi elemen SEO dasar. Abaikan error websocket dev overlay bila muncul; non-kritis."
