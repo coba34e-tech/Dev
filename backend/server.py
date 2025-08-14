@@ -324,6 +324,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Serve robots.txt and sitemap.xml from frontend public path via simple redirects
+@app.get("/robots.txt")
+async def robots(_: Request):
+    # Ingress proxies frontend at /, so expose plain text here too
+    return Response(content="User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n", media_type="text/plain")
+
+@app.get("/sitemap.xml")
+async def sitemap(_: Request):
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>/dashboard</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+</urlset>
+"""
+    return Response(content=xml, media_type="application/xml")
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
