@@ -6,8 +6,13 @@ import { Card, CardContent } from "../components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "../components/ui/table";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../components/ui/select";
 import { toast } from "../hooks/use-toast";
-import { currencyIDR, loadData, saveData } from "../mock/mock";
 import { Copy, Plus, Search, Trash2, Download, Wand2 } from "lucide-react";
+import {
+  getProducts, createProduct, updateProduct as apiUpdateProduct, deleteProduct as apiDeleteProduct,
+  getCampaigns, createCampaign as apiCreateCampaign, updateCampaign as apiUpdateCampaign, deleteCampaign as apiDeleteCampaign,
+  getCoupons, createCoupon as apiCreateCoupon, updateCoupon as apiUpdateCoupon, deleteCoupon as apiDeleteCoupon,
+  getUtmLinks, createUtmLink, getClicks, getMetrics, exportCSVUrl
+} from "../lib/api";
 
 const SectionHeader = ({ title, extra }) => (
   <div className="flex items-center justify-between mb-4">
@@ -18,90 +23,123 @@ const SectionHeader = ({ title, extra }) => (
 
 export default function Dashboard() {
   const [active, setActive] = useState("overview");
-  const [data, setData] = useState(loadData());
   const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    // ensure initial save
-    saveData(data);
-  }, []);
+  const [products, setProducts] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
+  const [coupons, setCoupons] = useState([]);
+  const [utmLinks, setUtmLinks] = useState([]);
+  const [clicks, setClicks] = useState([]);
+  const [metrics, setMetrics] = useState({ clicks: 0, conversions: 0, revenue: 0, ctr: 0 });
+  const [loading, setLoading] = useState(false);
 
-  const update = (patch) => {
-    const next = { ...data, ...patch };
-    setData(next);
-    saveData(next);
-  };
-
-  const filteredProducts = useMemo(() => {
-    const q = query.toLowerCase();
-    return data.products.filter(
-      (p) => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
-    );
-  }, [data.products, query]);
-
-  const copy = async (text) => {
+  const fetchAll = async () => {
+    setLoading(true);
     try {
-      await navigator.clipboard.writeText(text);
-      toast({ title: "Disalin ke clipboard" });
-    } catch {
-      toast({ title: "Gagal menyalin", variant: "destructive" });
+      const [p, c, cp, u, cl, m] = await Promise.all([
+        getProducts(), getCampaigns(), getCoupons(), getUtmLinks(), getClicks(100), getMetrics()
+      ]);
+      setProducts(p); setCampaigns(c); setCoupons(cp); setUtmLinks(u); setClicks(cl); setMetrics(m);
+    } catch (e) {
+      console.error(e);
+      toast({ title: "Gagal memuat data", variant: "destructive" });
+    } finally {
+      setLoading(false);
     }
   };
 
-  const addProduct = () => {
-    const id = "p" + Math.random().toString(36).slice(2, 7);
-    const np = { id, name: "Produk Baru", category: "Lainnya", price: 0, commission: 10, active: true, url: "https://merchant.com/?ref=YOURID" };
-    update({ products: [np, ...data.products] });
+  useEffect(() => {
+    fetchAll();
+  }, []);
+
+  const filteredProducts = useMemo(() => {
+    const q = query.toLowerCase();
+    return products.filter(
+      (p) => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
+    );
+  }, [products, query]);
+
+  const copy = async (text) => {
+    try { await navigator.clipboard.writeText(text); toast({ title: "Disalin ke clipboard" }); }
+    catch { toast({ title: "Gagal menyalin", variant: "destructive" }); }
   };
 
-  const updateProduct = (id, patch) => {
-    update({ products: data.products.map((p) => (p.id === id ? { ...p, ...patch } : p)) });
+  // ===== Products =====
+  const addProduct = async () => {
+    try {
+      const np = await createProduct({ name: "Produk Baru", category: "Lainnya", price: 0, commission: 10, active: true, url: "https://merchant.com/?ref=YOURID" });
+      setProducts((s) => [np, ...s]);
+    } catch (e) { toast({ title: "Gagal menambah produk", variant: "destructive" }); }
+  };
+  const updateProduct = async (id, patch) => {
+    try {
+      const updated = await apiUpdateProduct(id, patch);
+      setProducts((s) => s.map((p) => (p.id === id ? updated : p)));
+    } catch { toast({ title: "Gagal menyimpan", variant: "destructive" }); }
+  };
+  const removeProduct = async (id) => {
+    try { await apiDeleteProduct(id); setProducts((s) => s.filter((p) => p.id !== id)); }
+    catch { toast({ title: "Gagal menghapus", variant: "destructive" }); }
   };
 
-  const removeProduct = (id) => {
-    update({ products: data.products.filter((p) => p.id !== id) });
+  // ===== Campaigns =====
+  const addCampaign = async () => {
+    try {
+      const today = new Date().toISOString().slice(0,10);
+      const nc = await apiCreateCampaign({ name: "Kampanye Baru", budget: 0, status: "aktif", start: today, end: today, utm: { source: "seo", medium: "blog", campaign: "new_campaign" } });
+      setCampaigns((s) => [nc, ...s]);
+    } catch { toast({ title: "Gagal menambah kampanye", variant: "destructive" }); }
+  };
+  const updateCampaign = async (id, patch) => {
+    try {
+      const updated = await apiUpdateCampaign(id, patch);
+      setCampaigns((s) => s.map((c) => (c.id === id ? updated : c)));
+    } catch { toast({ title: "Gagal menyimpan", variant: "destructive" }); }
+  };
+  const removeCampaign = async (id) => {
+    try { await apiDeleteCampaign(id); setCampaigns((s) => s.filter((c) => c.id !== id)); }
+    catch { toast({ title: "Gagal menghapus", variant: "destructive" }); }
   };
 
-  const addCampaign = () => {
-    const id = "c" + Math.random().toString(36).slice(2, 7);
-    const nc = { id, name: "Kampanye Baru", budget: 0, status: "aktif", start: new Date().toISOString().slice(0,10), end: new Date().toISOString().slice(0,10), utm: { source: "seo", medium: "blog", campaign: id } };
-    update({ campaigns: [nc, ...data.campaigns] });
+  // ===== Coupons =====
+  const addCoupon = async () => {
+    try { const nc = await apiCreateCoupon({ code: "NEW10", discount: 10, usage: 0, active: true }); setCoupons((s)=>[nc, ...s]); }
+    catch { toast({ title: "Gagal menambah kupon", variant: "destructive" }); }
+  };
+  const updateCoupon = async (id, patch) => {
+    try { const updated = await apiUpdateCoupon(id, patch); setCoupons((s)=>s.map((c)=>c.id===id?updated:c)); }
+    catch { toast({ title: "Gagal menyimpan", variant: "destructive" }); }
+  };
+  const removeCoupon = async (id) => {
+    try { await apiDeleteCoupon(id); setCoupons((s)=>s.filter((c)=>c.id!==id)); }
+    catch { toast({ title: "Gagal menghapus", variant: "destructive" }); }
   };
 
-  const updateCampaign = (id, patch) => {
-    update({ campaigns: data.campaigns.map(c => c.id === id ? { ...c, ...patch } : c) });
+  // ===== UTM Builder =====
+  const [form, setForm] = useState({ base: "https://yourblog.com/post", source: "seo", medium: "blog", campaign: "", term: "", content: "" });
+  const setFormVal = (k, v) => setForm(prev => ({ ...prev, [k]: v }));
+  const buildUTM = async () => {
+    const params = new URLSearchParams();
+    if (form.source) params.set("utm_source", form.source);
+    if (form.medium) params.set("utm_medium", form.medium);
+    if (form.campaign) params.set("utm_campaign", form.campaign);
+    if (form.term) params.set("utm_term", form.term);
+    if (form.content) params.set("utm_content", form.content);
+    const url = `${form.base}${form.base.includes("?")?"&":"?"}${params.toString()}`;
+    try {
+      const item = await createUtmLink({ title: form.campaign || form.source, url });
+      setUtmLinks((s)=>[item, ...s]);
+      toast({ title: "URL UTM dibuat" });
+      navigator.clipboard.writeText(url).catch(()=>{});
+    } catch { toast({ title: "Gagal membuat link", variant: "destructive" }); }
   };
 
-  const removeCampaign = (id) => update({ campaigns: data.campaigns.filter(c => c.id !== id) });
-
-  const addCoupon = () => {
-    const id = "cp" + Math.random().toString(36).slice(2, 7);
-    const nc = { id, code: "NEW10", discount: 10, usage: 0, active: true };
-    update({ coupons: [nc, ...data.coupons] });
-  };
-
-  const updateCoupon = (id, patch) => update({ coupons: data.coupons.map(c => c.id === id ? { ...c, ...patch } : c) });
-  const removeCoupon = (id) => update({ coupons: data.coupons.filter(c => c.id !== id) });
-
-  const exportCSV = () => {
-    const rows = [];
-    rows.push(["type","id","name","category","price","commission","active"].join(","));
-    data.products.forEach(p => rows.push(["product",p.id,p.name,p.category,p.price,p.commission,p.active].join(",")));
-    rows.push("\n");
-    rows.push(["type","id","name","budget","status","start","end"].join(","));
-    data.campaigns.forEach(c => rows.push(["campaign",c.id,c.name,c.budget,c.status,c.start,c.end].join(",")));
-    const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url; a.download = "affipro_export.csv"; a.click();
-    URL.revokeObjectURL(url);
-    toast({ title: "CSV diekspor" });
-  };
+  const currencyIDR = (n) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n || 0);
 
   const Overview = () => (
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-4">
-        {[{label: "Klik", value: data.metrics.clicks}, {label: "Konversi", value: data.metrics.conversions}, {label: "Pendapatan", value: currencyIDR(data.metrics.revenue)}, {label: "CTR", value: data.metrics.ctr + "%"}].map((m, i) => (
+        {[{label: "Klik", value: clicks.length}, {label: "Konversi", value: metrics.conversions}, {label: "Pendapatan", value: currencyIDR(metrics.revenue)}, {label: "CTR", value: metrics.ctr + "%"}].map((m, i) => (
           <Card key={i}>
             <CardContent className="p-5">
               <div className="text-sm text-stone-500">{m.label}</div>
@@ -124,12 +162,12 @@ export default function Dashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.clicks.map((c) => (
+              {clicks.map((c) => (
                 <TableRow key={c.id}>
                   <TableCell>{c.id}</TableCell>
-                  <TableCell>{data.products.find(p => p.id===c.productId)?.name || c.productId}</TableCell>
+                  <TableCell>{products.find(p => p.id===c.productId)?.name || c.productId}</TableCell>
                   <TableCell className="uppercase">{c.source}</TableCell>
-                  <TableCell>{data.campaigns.find(k=>k.id===c.campaignId)?.name || c.campaignId}</TableCell>
+                  <TableCell>{campaigns.find(k=>k.id===c.campaignId)?.name || c.campaignId}</TableCell>
                   <TableCell>{new Date(c.ts).toLocaleString("id-ID")}</TableCell>
                 </TableRow>
               ))}
@@ -228,7 +266,7 @@ export default function Dashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.campaigns.map(c => (
+              {campaigns.map(c => (
                 <TableRow key={c.id}>
                   <TableCell><Input value={c.name} onChange={(e)=>updateCampaign(c.id,{name:e.target.value})} /></TableCell>
                   <TableCell><Input type="number" value={c.budget} onChange={(e)=>updateCampaign(c.id,{budget:Number(e.target.value)})} /></TableCell>
@@ -263,101 +301,82 @@ export default function Dashboard() {
     </div>
   );
 
-  const UTMBuilder = () => {
-    const [form, setForm] = useState({ base: "https://yourblog.com/post", source: "seo", medium: "blog", campaign: "", term: "", content: "" });
-    const set = (k, v) => setForm(prev => ({ ...prev, [k]: v }));
-    const build = () => {
-      const params = new URLSearchParams();
-      if (form.source) params.set("utm_source", form.source);
-      if (form.medium) params.set("utm_medium", form.medium);
-      if (form.campaign) params.set("utm_campaign", form.campaign);
-      if (form.term) params.set("utm_term", form.term);
-      if (form.content) params.set("utm_content", form.content);
-      const url = `${form.base}${form.base.includes("?")?"&":"?"}${params.toString()}`;
-      toast({ title: "URL UTM dibuat" });
-      const id = "u" + Math.random().toString(36).slice(2, 7);
-      const item = { id, title: form.campaign || form.source, url };
-      update({ utmLinks: [item, ...data.utmLinks] });
-      navigator.clipboard.writeText(url).catch(()=>{});
-    };
-
-    return (
-      <div className="space-y-6">
-        <Card>
-          <CardContent className="p-5 space-y-4">
-            <SectionHeader title="UTM Builder" />
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm text-stone-600">Base URL</label>
-                <Input value={form.base} onChange={(e)=>set("base", e.target.value)} />
-              </div>
-              <div>
-                <label className="text-sm text-stone-600">Pilih Kampanye</label>
-                <Select value={form.campaign} onValueChange={(v)=>set("campaign", v)}>
-                  <SelectTrigger><SelectValue placeholder="Pilih kampanye (opsional)" /></SelectTrigger>
-                  <SelectContent>
-                    {data.campaigns.map(c => <SelectItem key={c.id} value={c.utm.campaign}>{c.name}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <label className="text-sm text-stone-600">Source</label>
-                <Select value={form.source} onValueChange={(v)=>set("source", v)}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {['seo','newsletter','ads','social','referral'].map(v => <SelectItem key={v} value={v}>{v}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <label className="text-sm text-stone-600">Medium</label>
-                <Select value={form.medium} onValueChange={(v)=>set("medium", v)}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {['blog','email','cpc','organic','influencer'].map(v => <SelectItem key={v} value={v}>{v}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <label className="text-sm text-stone-600">Term (opsional)</label>
-                <Input value={form.term} onChange={(e)=>set("term", e.target.value)} />
-              </div>
-              <div>
-                <label className="text-sm text-stone-600">Content (opsional)</label>
-                <Input value={form.content} onChange={(e)=>set("content", e.target.value)} />
-              </div>
+  const UTMBuilder = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardContent className="p-5 space-y-4">
+          <SectionHeader title="UTM Builder" />
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-sm text-stone-600">Base URL</label>
+              <Input value={form.base} onChange={(e)=>setFormVal("base", e.target.value)} />
             </div>
-            <Button className="bg-teal-600 hover:bg-teal-700 text-white" onClick={build}><Wand2 size={16} />Buat & Salin URL</Button>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-5">
-            <SectionHeader title="Link Tersimpan" />
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Judul</TableHead>
-                  <TableHead>URL</TableHead>
-                  <TableHead className="text-right pr-4">Aksi</TableHead>
+            <div>
+              <label className="text-sm text-stone-600">Pilih Kampanye</label>
+              <Select value={form.campaign} onValueChange={(v)=>setFormVal("campaign", v)}>
+                <SelectTrigger><SelectValue placeholder="Pilih kampanye (opsional)" /></SelectTrigger>
+                <SelectContent>
+                  {campaigns.map(c => <SelectItem key={c.id} value={c.utm.campaign}>{c.name}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-sm text-stone-600">Source</label>
+              <Select value={form.source} onValueChange={(v)=>setFormVal("source", v)}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {['seo','newsletter','ads','social','referral'].map(v => <SelectItem key={v} value={v}>{v}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-sm text-stone-600">Medium</label>
+              <Select value={form.medium} onValueChange={(v)=>setFormVal("medium", v)}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {['blog','email','cpc','organic','influencer'].map(v => <SelectItem key={v} value={v}>{v}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-sm text-stone-600">Term (opsional)</label>
+              <Input value={form.term} onChange={(e)=>setFormVal("term", e.target.value)} />
+            </div>
+            <div>
+              <label className="text-sm text-stone-600">Content (opsional)</label>
+              <Input value={form.content} onChange={(e)=>setFormVal("content", e.target.value)} />
+            </div>
+          </div>
+          <Button className="bg-teal-600 hover:bg-teal-700 text-white" onClick={buildUTM}><Wand2 size={16} />Buat & Salin URL</Button>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent className="p-5">
+          <SectionHeader title="Link Tersimpan" />
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Judul</TableHead>
+                <TableHead>URL</TableHead>
+                <TableHead className="text-right pr-4">Aksi</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {utmLinks.map(u => (
+                <TableRow key={u.id}>
+                  <TableCell>{u.title}</TableCell>
+                  <TableCell className="truncate max-w-[600px]"><a href={u.url} className="text-teal-700 hover:underline" target="_blank" rel="noreferrer">{u.url}</a></TableCell>
+                  <TableCell className="text-right pr-4">
+                    <Button variant="outline" onClick={()=>copy(u.url)}><Copy size={14} /></Button>
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data.utmLinks.map(u => (
-                  <TableRow key={u.id}>
-                    <TableCell>{u.title}</TableCell>
-                    <TableCell className="truncate max-w-[600px]"><a href={u.url} className="text-teal-700 hover:underline" target="_blank" rel="noreferrer">{u.url}</a></TableCell>
-                    <TableCell className="text-right pr-4">
-                      <Button variant="outline" onClick={()=>copy(u.url)}><Copy size={14} /></Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  };
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
+  );
 
   const Coupons = () => (
     <div className="space-y-4">
@@ -377,7 +396,7 @@ export default function Dashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.coupons.map(cp => (
+              {coupons.map(cp => (
                 <TableRow key={cp.id}>
                   <TableCell><Input value={cp.code} onChange={(e)=>updateCoupon(cp.id,{code:e.target.value})} /></TableCell>
                   <TableCell>
@@ -412,9 +431,9 @@ export default function Dashboard() {
         <CardContent className="p-5 flex items-center justify-between">
           <div>
             <div className="font-medium">Unduh CSV Produk & Kampanye</div>
-            <div className="text-sm text-stone-600">Siap untuk laporan atau analisis lanjutan.</div>
+            <div className="text-sm text-stone-600">Data real dari backend.</div>
           </div>
-          <Button className="bg-teal-600 hover:bg-teal-700 text-white" onClick={exportCSV}><Download size={16} />Unduh CSV</Button>
+          <Button className="bg-teal-600 hover:bg-teal-700 text-white" onClick={()=>{ window.open(exportCSVUrl(), "_blank"); toast({ title: "CSV diekspor" }); }}><Download size={16} />Unduh CSV</Button>
         </CardContent>
       </Card>
     </div>
@@ -427,9 +446,10 @@ export default function Dashboard() {
         <div className="flex-1">
           <div className="hidden md:flex h-14 items-center justify-between px-6 border-b bg-white sticky top-0 z-30">
             <div className="font-medium text-stone-700">Dashboard</div>
-            <div className="text-xs text-stone-500">Mock data — belum terhubung backend</div>
+            <div className="text-xs text-stone-500">Terhubung backend</div>
           </div>
           <main className="p-4 md:p-6 max-w-6xl">
+            {loading && <div className="text-sm text-stone-500 mb-4">Memuat data…</div>}
             {active === "overview" && <Overview />}
             {active === "products" && <Products />}
             {active === "campaigns" && <Campaigns />}
