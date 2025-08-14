@@ -2,7 +2,7 @@ import os, time, json
 import requests
 
 # Frontend uses REACT_APP_BACKEND_URL; for testing we assume ingress maps /api -> backend
-BASE = os.environ.get("TEST_BACKEND_BASE", "http://localhost/api")
+BASE = os.environ.get("TEST_BACKEND_BASE", "http://localhost:8001/api")
 
 def p(label, data):
     print(label, json.dumps(data, indent=2, default=str))
