@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Afiliasi - Beranda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/workspace/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="/workspace/index.html" class="logo">Affi<span>Shop</span></a>
+      </div>
+      <form id="searchForm" class="search-filter" autocomplete="off">
+        <input id="searchInput" type="text" placeholder="Cari produk..." aria-label="Cari produk" />
+        <select id="categoryFilter" aria-label="Filter kategori">
+          <option value="">Semua Kategori</option>
+        </select>
+        <select id="sortSelect" aria-label="Urutkan">
+          <option value="newest">Terbaru</option>
+          <option value="price_low">Harga Terendah</option>
+          <option value="price_high">Harga Tertinggi</option>
+          <option value="rating">Rating Tertinggi</option>
+          <option value="popular">Terpopuler</option>
+        </select>
+        <button type="submit" class="btn primary">Cari</button>
+        <button id="clearBtn" type="button" class="btn ghost" aria-label="Hapus filter">Reset</button>
+      </form>
+      <nav class="top-nav">
+        <a href="/workspace/dashboard.html" class="btn small">Dasbor</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-grid" id="mainContent" tabindex="-1">
+    <section aria-labelledby="catalogTitle" class="catalog">
+      <div class="section-header">
+        <h1 id="catalogTitle">Katalog Produk Afiliasi</h1>
+        <span id="resultCount" class="muted"></span>
+      </div>
+      <div id="productGrid" class="product-grid" aria-live="polite"></div>
+
+      <nav id="pagination" class="pagination" aria-label="Navigasi halaman"></nav>
+
+      <aside id="promoAds" class="promo-ads" aria-label="Iklan Promosi">
+        <!-- Iklan akan dirender oleh JS -->
+      </aside>
+    </section>
+
+    <aside class="sidebar" aria-label="Sidebar produk">
+      <section class="side-section" aria-labelledby="newTitle">
+        <div class="section-header compact">
+          <h2 id="newTitle">Produk Baru</h2>
+        </div>
+        <div id="newList" class="side-list"></div>
+      </section>
+
+      <section class="side-section" aria-labelledby="recTitle">
+        <div class="section-header compact">
+          <h2 id="recTitle">Rekomendasi</h2>
+        </div>
+        <div id="recList" class="side-list"></div>
+      </section>
+
+      <section class="side-section" aria-labelledby="popTitle">
+        <div class="section-header compact">
+          <h2 id="popTitle">Populer</h2>
+        </div>
+        <div id="popList" class="side-list"></div>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <small>© <span id="year"></span> AffiShop. Dibuat untuk demo UI/UX.</small>
+    </div>
+  </footer>
+
+  <script src="/workspace/js/data.js"></script>
+  <script src="/workspace/js/storage.js"></script>
+  <script src="/workspace/js/utils.js"></script>
+  <script src="/workspace/js/main.js"></script>
+</body>
+</html>

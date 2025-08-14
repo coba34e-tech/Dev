@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dasbor CMS - AffiShop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/workspace/css/styles.css">
+</head>
+<body class="dashboard">
+  <aside class="sidebar-cms" id="sidebar">
+    <div class="sidebar-top">
+      <a href="/workspace/index.html" class="logo">Affi<span>Shop</span></a>
+      <button id="toggleSidebar" class="icon-btn" aria-label="Ciutkan/lebarkan sidebar">⟨⟩</button>
+    </div>
+    <nav class="menu">
+      <a href="#overview" class="menu-item active">Ikhtisar</a>
+      <a href="#postProduct" class="menu-item">Posting Produk</a>
+      <a href="#postAd" class="menu-item">Posting Iklan</a>
+      <a href="#manage" class="menu-item">Kelola Konten</a>
+    </nav>
+  </aside>
+
+  <main class="cms-main" id="cmsMain">
+    <header class="cms-header">
+      <h1>Dasbor Konten Manajemen</h1>
+    </header>
+
+    <section id="overview" class="cms-section">
+      <h2>Ikhtisar</h2>
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <section id="postProduct" class="cms-section">
+      <h2>Posting Produk</h2>
+      <form id="productForm" class="form-grid" autocomplete="off">
+        <label>Nama Produk<input name="name" required placeholder="Contoh: Headphone Wireless" /></label>
+        <label>Kategori<select name="category" required id="categorySelect"></select></label>
+        <label>Harga (Rp)<input name="price" type="number" min="0" step="1000" required /></label>
+        <label>URL Gambar (pisahkan dengan koma)<textarea name="images" rows="2" placeholder="https://... , https://..."></textarea></label>
+        <label>URL Video (opsional, koma)<textarea name="videos" rows="2" placeholder="https://... , https://..."></textarea></label>
+        <label>Deskripsi<textarea name="description" rows="4" required></textarea></label>
+        <label>URL Affiliate<input name="affiliateUrl" type="url" placeholder="https://..." /></label>
+        <label>Tag (koma)<input name="tags" placeholder="audio, bluetooth" /></label>
+        <div class="check-row">
+          <label><input type="checkbox" name="isNew" /> Baru</label>
+          <label><input type="checkbox" name="isRecommended" /> Rekomendasi</label>
+          <label><input type="checkbox" name="isPopular" /> Populer</label>
+        </div>
+        <button class="btn primary" type="submit">Simpan Produk</button>
+        <div class="form-note">Produk disimpan lokal (localStorage) untuk demo.</div>
+      </form>
+    </section>
+
+    <section id="postAd" class="cms-section">
+      <h2>Posting Iklan</h2>
+      <form id="adForm" class="form-grid" autocomplete="off">
+        <label>Judul Iklan<input name="title" required /></label>
+        <label>Gambar Iklan URL<input name="imageUrl" type="url" required placeholder="https://..." /></label>
+        <label>Tautan Iklan<input name="targetUrl" type="url" required placeholder="https://..." /></label>
+        <label>Posisi<select name="position" required>
+          <option value="homepage_footer">Beranda - Bawah pagination</option>
+          <option value="detail_related">Detail - Bawah info</option>
+        </select></label>
+        <label>Aktif Dari<input name="startDate" type="date" /></label>
+        <label>Aktif Sampai<input name="endDate" type="date" /></label>
+        <button class="btn primary" type="submit">Simpan Iklan</button>
+        <div class="form-note">Iklan disimpan lokal (localStorage) untuk demo.</div>
+      </form>
+    </section>
+
+    <section id="manage" class="cms-section">
+      <h2>Kelola Konten</h2>
+      <div class="manage-grid">
+        <div>
+          <h3>Produk</h3>
+          <div id="manageProducts" class="manage-list"></div>
+        </div>
+        <div>
+          <h3>Iklan</h3>
+          <div id="manageAds" class="manage-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/workspace/js/data.js"></script>
+  <script src="/workspace/js/storage.js"></script>
+  <script src="/workspace/js/utils.js"></script>
+  <script src="/workspace/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Produk - AffiShop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/workspace/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="/workspace/index.html" class="logo">Affi<span>Shop</span></a>
+      </div>
+      <form id="miniSearchForm" class="search-filter compact" autocomplete="off">
+        <input id="miniSearchInput" type="text" placeholder="Cari produk..." aria-label="Cari produk" />
+        <button type="submit" class="btn small">Cari</button>
+      </form>
+      <nav class="top-nav">
+        <a href="/workspace/dashboard.html" class="btn small">Dasbor</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container detail-grid" id="detailContent" tabindex="-1">
+    <section class="media-column" aria-label="Galeri media produk">
+      <div class="media-viewer">
+        <button class="nav prev" id="prevMedia" aria-label="Media sebelumnya">‹</button>
+        <div id="mediaStage" class="media-stage" aria-live="polite"></div>
+        <button class="nav next" id="nextMedia" aria-label="Media berikutnya">›</button>
+      </div>
+      <div id="thumbs" class="media-thumbs" role="list" aria-label="Thumbnail media"></div>
+    </section>
+
+    <section class="info-column" aria-labelledby="prodTitle">
+      <div class="section-header">
+        <h1 id="prodTitle">Produk</h1>
+        <span id="categoryBadge" class="category-badge">Kategori</span>
+      </div>
+
+      <div class="price-row">
+        <div>
+          <div class="price" id="prodPrice"></div>
+          <div class="rating" id="prodRating"></div>
+        </div>
+        <a id="buyBtn" class="btn primary lg" href="#" target="_blank" rel="noopener">Beli via Affiliate</a>
+      </div>
+
+      <p id="prodDesc" class="description"></p>
+
+      <ul id="prodSpecs" class="specs"></ul>
+
+      <div class="tags" id="prodTags"></div>
+    </section>
+  </main>
+
+  <section class="container related-section" aria-labelledby="relatedTitle">
+    <div class="section-header">
+      <h2 id="relatedTitle">Produk Terkait</h2>
+    </div>
+    <div id="relatedRow" class="related-row"></div>
+  </section>
+
+  <aside id="detailAds" class="promo-ads container" aria-label="Iklan Promosi"></aside>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="/workspace/index.html" class="btn small">← Kembali ke Beranda</a>
+      <small>© <span id="year"></span> AffiShop</small>
+    </div>
+  </footer>
+
+  <script src="/workspace/js/data.js"></script>
+  <script src="/workspace/js/storage.js"></script>
+  <script src="/workspace/js/utils.js"></script>
+  <script src="/workspace/js/detail.js"></script>
+</body>
+</html>
