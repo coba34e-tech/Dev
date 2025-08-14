@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dasbor Afiliasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="https://unpkg.com/feather-icons"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo">AF</div>
+        <div class="brand-name">Afiliasi</div>
+        <button id="toggleSidebar" class="icon-btn" aria-label="Toggle Sidebar"><i data-feather="sidebar"></i></button>
+      </div>
+
+      <div class="user-card">
+        <div class="avatar">JD</div>
+        <div class="user-meta">
+          <div class="user-name">John Doe</div>
+          <div class="user-sub">ID: AFF-93827</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-link active" data-route="overview"><i data-feather="home"></i><span>Ikhtisar</span></a>
+        <a class="nav-link" data-route="campaigns"><i data-feather="layers"></i><span>Kampanye</span></a>
+        <a class="nav-link" data-route="traffic"><i data-feather="activity"></i><span>Lalu Lintas</span></a>
+        <a class="nav-link" data-route="payouts"><i data-feather="credit-card"></i><span>Pembayaran</span></a>
+        <a class="nav-link" data-route="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="toggleTheme" class="btn full"><i data-feather="moon"></i><span>Mode Gelap</span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="titles">
+          <h1 class="page-title">Dasbor Afiliasi</h1>
+          <p class="page-sub">Pantau performa kampanye dan pendapatan Anda secara real-time</p>
+        </div>
+        <div class="actions">
+          <label class="field">
+            <span>Rentang Tanggal</span>
+            <select id="dateRange">
+              <option value="7">7 hari</option>
+              <option value="30" selected>30 hari</option>
+              <option value="90">90 hari</option>
+              <option value="365">1 tahun</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Saluran</span>
+            <select id="channelFilter">
+              <option value="all" selected>Semua</option>
+              <option value="Search">Pencarian</option>
+              <option value="Social">Sosial</option>
+              <option value="Email">Email</option>
+              <option value="Display">Display</option>
+              <option value="Influencer">Influencer</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <section class="stats">
+        <div class="card stat">
+          <div class="stat-head">
+            <span class="stat-title">Pendapatan</span>
+            <i data-feather="trending-up"></i>
+          </div>
+          <div class="stat-value" id="statRevenue">Rp 0</div>
+          <div class="stat-sub" id="statRevenueSub">+0% dari periode sebelumnya</div>
+        </div>
+        <div class="card stat">
+          <div class="stat-head">
+            <span class="stat-title">Klik</span>
+            <i data-feather="mouse-pointer"></i>
+          </div>
+          <div class="stat-value" id="statClicks">0</div>
+          <div class="stat-sub" id="statClicksSub">+0% dari periode sebelumnya</div>
+        </div>
+        <div class="card stat">
+          <div class="stat-head">
+            <span class="stat-title">Konversi</span>
+            <i data-feather="check-circle"></i>
+          </div>
+          <div class="stat-value" id="statConversions">0</div>
+          <div class="stat-sub" id="statConversionsSub">+0% dari periode sebelumnya</div>
+        </div>
+        <div class="card stat">
+          <div class="stat-head">
+            <span class="stat-title">Rasio Konversi</span>
+            <i data-feather="percent"></i>
+          </div>
+          <div class="stat-value" id="statCvr">0%</div>
+          <div class="stat-sub" id="statCvrSub">+0% dari periode sebelumnya</div>
+        </div>
+        <div class="card stat">
+          <div class="stat-head">
+            <span class="stat-title">EPC</span>
+            <i data-feather="dollar-sign"></i>
+          </div>
+          <div class="stat-value" id="statEpcs">Rp 0</div>
+          <div class="stat-sub" id="statEpcsSub">+0% dari periode sebelumnya</div>
+        </div>
+      </section>
+
+      <section class="charts">
+        <div class="card">
+          <div class="card-head">
+            <h3>Tren Klik & Konversi</h3>
+            <div class="legend">
+              <span class="dot blue"></span> Klik
+              <span class="dot green"></span> Konversi
+            </div>
+          </div>
+          <canvas id="trafficChart" height="120"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>Pendapatan per Kampanye</h3>
+          </div>
+          <canvas id="revenueChart" height="120"></canvas>
+        </div>
+      </section>
+
+      <section class="table-wrap card">
+        <div class="card-head">
+          <h3>Kampanye Teratas</h3>
+          <div class="table-actions">
+            <input id="searchCampaign" type="search" placeholder="Cari kampanye..." />
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Kampanye</th>
+                <th>Saluran</th>
+                <th class="num">Klik</th>
+                <th class="num">Konversi</th>
+                <th class="num">EPC</th>
+                <th class="num">Pendapatan</th>
+              </tr>
+            </thead>
+            <tbody id="campaignTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>© <span id="year"></span> Program Afiliasi</span>
+        <div class="spacer"></div>
+        <button id="copyRef" class="btn"><i data-feather="link-2"></i><span>Salin Tautan Rujukan</span></button>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
