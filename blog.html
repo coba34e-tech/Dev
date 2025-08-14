@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | Katalog Afiliasi</title>
+  <meta name="description" content="Artikel, panduan, dan tips affiliate marketing.">
+  <link rel="stylesheet" href="/workspace/assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header compact">
+    <div class="container nav">
+      <a href="/workspace/index.html" class="brand"><span class="brand-mark">KA</span><span class="brand-name">Katalog Afiliasi</span></a>
+      <a href="/workspace/katalog.html" class="btn small">Katalog</a>
+    </div>
+  </header>
+  <main class="container section">
+    <h1>Blog</h1>
+    <div class="article-grid" id="blogList"></div>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Katalog Afiliasi</p>
+    </div>
+  </footer>
+  <script src="/workspace/assets/js/utils.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      window.updateYear();
+      const posts = [
+        { title: '7 Cara Meningkatkan Konversi Afiliasi', desc: 'Optimalkan konten, CTA, dan penempatan link untuk hasil maksimal.' },
+        { title: 'Checklist SEO untuk Link Afiliasi', desc: 'Pastikan halaman Anda ramah mesin pencari dan aman untuk pengguna.' },
+        { title: 'Toolkit Wajib Affiliate Marketer', desc: 'Pelacak link hingga template konten yang siap pakai.' }
+      ];
+      const c = document.getElementById('blogList');
+      c.innerHTML = posts.map(p => `
+        <article class="article-card">
+          <a href="#" class="thumb" aria-label="${p.title}">
+            <img loading="lazy" alt="${p.title}" src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360'%3E%3Crect width='640' height='360' fill='%230b1326'/%3E%3Ctext x='50%' y='52%' text-anchor='middle' font-size='24' fill='%239ccaff' font-family='Arial'%3E${p.title}%3C/text%3E%3C/svg%3E">
+          </a>
+          <div class="article-body">
+            <h3><a href="#">${p.title}</a></h3>
+            <p>${p.desc}</p>
+          </div>
+        </article>
+      `).join('');
+    });
+  </script>
+</body>
+</html>

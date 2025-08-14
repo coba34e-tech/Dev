@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dasbor | Katalog Afiliasi</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/workspace/assets/css/styles.css">
+  <style>
+    .dashboard { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+    .dash-sidebar { background: var(--surface-1); border-right: 1px solid var(--border); padding: 16px; position: sticky; top: 0; height: 100vh; overflow:auto; }
+    .dash-sidebar h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .08em; margin: 8px 0 12px; }
+    .dash-menu { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+    .dash-menu a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--text); text-decoration: none; }
+    .dash-menu a[aria-current="page"] { background: var(--surface-2); font-weight: 600; }
+    .dash-content { padding: 24px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+    .toolbar { display:flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+    .table { width: 100%; border-collapse: collapse; }
+    .table th, .table td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+    .table th { background: var(--surface-2); position: sticky; top: 0; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 960px) { .dashboard { grid-template-columns: 1fr; } .dash-sidebar { position: relative; height: auto; } .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="dash-sidebar" aria-label="Menu dasbor">
+      <a href="/workspace/index.html" class="brand" style="margin-bottom:12px;display:inline-flex;align-items:center;gap:8px;"><span class="brand-mark">KA</span><span class="brand-name">Katalog Afiliasi</span></a>
+      <h2>Navigasi</h2>
+      <nav>
+        <ul class="dash-menu" id="dashMenu">
+          <li><a href="#overview" data-view="overview" aria-current="page">Ikhtisar</a></li>
+          <li><a href="#products" data-view="products">Produk</a></li>
+          <li><a href="#categories" data-view="categories">Kategori</a></li>
+          <li><a href="#analytics" data-view="analytics">Analitik</a></li>
+          <li><a href="#seo" data-view="seo">SEO</a></li>
+          <li><a href="#settings" data-view="settings">Pengaturan</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="dash-content">
+      <header class="toolbar">
+        <input id="dashSearch" type="search" placeholder="Cari di dasbor...">
+        <span class="muted" id="saveStatus">Tidak ada perubahan</span>
+        <a class="btn small" href="/workspace/katalog.html" target="_blank">Lihat Katalog</a>
+      </header>
+
+      <section id="view-overview" data-view="overview">
+        <div class="cards">
+          <div class="card"><h3>Total Produk</h3><div id="cardTotalProducts" class="stat">0</div></div>
+          <div class="card"><h3>Komisi Rata-rata</h3><div id="cardAvgCommission" class="stat">0%</div></div>
+          <div class="card"><h3>Rating Rata-rata</h3><div id="cardAvgRating" class="stat">0</div></div>
+          <div class="card"><h3>Jaringan</h3><div id="cardNetworks" class="stat">0</div></div>
+        </div>
+        <div class="card" style="margin-top:16px;">
+          <h3>Performa (simulasi)</h3>
+          <canvas id="perfChart" width="900" height="240" style="max-width:100%;"></canvas>
+        </div>
+      </section>
+
+      <section id="view-products" data-view="products" hidden>
+        <div class="toolbar">
+          <button id="btnAddProduct" class="btn">Tambah Produk</button>
+          <select id="filterByCategory"></select>
+          <select id="filterByNetwork"></select>
+        </div>
+        <div class="card">
+          <table class="table" id="productTable">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Kategori</th>
+                <th>Jaringan</th>
+                <th>Harga</th>
+                <th>Komisi</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="view-categories" data-view="categories" hidden>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Daftar Kategori</h3>
+            <ul id="categoryList"></ul>
+          </div>
+          <div class="card">
+            <h3>Tambah / Edit Kategori</h3>
+            <form id="categoryForm">
+              <input type="hidden" id="catId">
+              <label>Nama</label>
+              <input id="catName" required>
+              <label>Slug</label>
+              <input id="catSlug" required>
+              <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn" type="submit">Simpan</button>
+                <button class="btn ghost" type="reset">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-analytics" data-view="analytics" hidden>
+        <div class="card">
+          <h3>Ringkasan</h3>
+          <p class="muted">Data simulasi untuk klik, konversi, dan pendapatan.</p>
+          <div class="grid-2">
+            <div>
+              <h4>Grafik</h4>
+              <canvas id="analyticsChart" width="900" height="260" style="max-width:100%;"></canvas>
+            </div>
+            <div>
+              <h4>Angka</h4>
+              <ul>
+                <li>Klik: <strong id="anClicks">0</strong></li>
+                <li>Konversi: <strong id="anConv">0</strong></li>
+                <li>CR: <strong id="anCR">0%</strong></li>
+                <li>Pendapatan: <strong id="anRevenue">Rp0</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-seo" data-view="seo" hidden>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Meta Tag Default</h3>
+            <form id="seoForm">
+              <label>Title</label>
+              <input id="seoTitle" placeholder="Judul situs">
+              <label>Description</label>
+              <textarea id="seoDesc" rows="4" placeholder="Deskripsi situs"></textarea>
+              <label>Keywords</label>
+              <input id="seoKeywords" placeholder="kata kunci, dipisah koma">
+              <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn" type="submit">Simpan</button>
+                <button class="btn ghost" type="reset">Reset</button>
+              </div>
+            </form>
+          </div>
+          <div class="card">
+            <h3>Pratinjau SERP</h3>
+            <div id="serpPreview" class="serp"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-settings" data-view="settings" hidden>
+        <div class="card">
+          <h3>Pengaturan</h3>
+          <label><input type="checkbox" id="optNoindex"> Nonaktifkan indeks untuk dasbor</label>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="productDialog">
+    <form id="productForm" method="dialog" class="card" style="min-width: min(680px, 96vw);">
+      <h3 id="productFormTitle">Tambah Produk</h3>
+      <input type="hidden" id="prodId">
+      <div class="grid-2">
+        <div>
+          <label>Nama</label>
+          <input id="prodName" required>
+        </div>
+        <div>
+          <label>Merek</label>
+          <input id="prodBrand">
+        </div>
+        <div>
+          <label>Kategori</label>
+          <select id="prodCategory" required></select>
+        </div>
+        <div>
+          <label>Jaringan</label>
+          <input id="prodNetwork" list="networks">
+          <datalist id="networks"></datalist>
+        </div>
+        <div>
+          <label>Harga (Rp)</label>
+          <input id="prodPrice" type="number" min="0" step="100">
+        </div>
+        <div>
+          <label>Komisi (%)</label>
+          <input id="prodCommission" type="number" min="0" max="100" step="0.1">
+        </div>
+      </div>
+      <label>Deskripsi</label>
+      <textarea id="prodDesc" rows="3"></textarea>
+      <label>Link Afiliasi</label>
+      <input id="prodLink" type="url" required>
+      <label>Gambar (URL)</label>
+      <input id="prodImage" type="url">
+      <label>Tag (pisahkan koma)</label>
+      <input id="prodTags">
+      <menu style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
+        <button class="btn ghost" value="cancel">Batal</button>
+        <button class="btn" value="default">Simpan</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="/workspace/assets/js/utils.js"></script>
+  <script src="/workspace/assets/js/data.js"></script>
+  <script src="/workspace/assets/js/dashboard.js"></script>
+</body>
+</html>

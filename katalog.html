@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Katalog Produk Afiliasi | Telusuri & Filter</title>
+  <meta name="description" content="Telusuri katalog produk afiliasi, filter berdasarkan kategori, harga, rating, dan jaringan. SEO-friendly dan cepat.">
+  <link rel="canonical" href="https://example.com/katalog.html">
+  <link rel="stylesheet" href="/workspace/assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header compact">
+    <div class="container nav">
+      <a href="/workspace/index.html" class="brand"><span class="brand-mark">KA</span><span class="brand-name">Katalog Afiliasi</span></a>
+      <form class="nav-search" role="search" action="/workspace/katalog.html" method="get">
+        <input type="search" name="q" id="catalogSearch" placeholder="Cari produk...">
+        <button type="submit" class="btn">Cari</button>
+      </form>
+      <a href="/workspace/dashboard.html" class="btn small">Dasbor</a>
+    </div>
+  </header>
+
+  <main class="container catalog">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/workspace/index.html">Beranda</a>
+      <span aria-hidden="true">›</span>
+      <span>Katalog</span>
+    </nav>
+
+    <header class="catalog-head">
+      <h1>Katalog Produk</h1>
+      <p id="catalogSummary" class="muted"></p>
+    </header>
+
+    <div class="catalog-layout">
+      <aside class="filters" aria-label="Filter katalog">
+        <details open>
+          <summary>Kategori</summary>
+          <div id="filterCategories" class="filter-group"></div>
+        </details>
+        <details open>
+          <summary>Jaringan</summary>
+          <div id="filterNetworks" class="filter-group"></div>
+        </details>
+        <details>
+          <summary>Harga</summary>
+          <div class="filter-group">
+            <label>Min</label>
+            <input type="number" id="priceMin" placeholder="0">
+            <label>Maks</label>
+            <input type="number" id="priceMax" placeholder="10000000">
+          </div>
+        </details>
+        <details>
+          <summary>Rating</summary>
+          <div class="filter-group">
+            <input type="range" id="ratingMin" min="0" max="5" step="0.5" value="0">
+            <div class="range-labels"><span>0</span><span>5</span></div>
+          </div>
+        </details>
+        <button id="applyFilters" class="btn full">Terapkan</button>
+        <button id="resetFilters" class="btn ghost full">Reset</button>
+      </aside>
+
+      <section class="results" aria-live="polite">
+        <div class="results-head">
+          <div class="controls">
+            <label for="sort">Urutkan</label>
+            <select id="sort">
+              <option value="relevance">Paling relevan</option>
+              <option value="price_asc">Harga termurah</option>
+              <option value="price_desc">Harga termahal</option>
+              <option value="rating_desc">Rating tertinggi</option>
+              <option value="commission_desc">Komisi tertinggi</option>
+            </select>
+            <label for="perPage">/ halaman</label>
+            <select id="perPage">
+              <option>12</option>
+              <option>24</option>
+              <option>48</option>
+            </select>
+          </div>
+        </div>
+        <div id="resultGrid" class="product-grid"></div>
+        <nav class="pagination" aria-label="Pagination">
+          <button id="prevPage" class="btn small" disabled>Sebelumnya</button>
+          <span id="pageInfo" class="muted"></span>
+          <button id="nextPage" class="btn small" disabled>Berikutnya</button>
+        </nav>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Katalog Afiliasi</p>
+      <a class="muted" href="/workspace/robots.txt">Robots</a>
+      <a class="muted" href="/workspace/sitemap.xml">Sitemap</a>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://example.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Katalog", "item": "https://example.com/katalog.html"}
+    ]
+  }
+  </script>
+  <script src="/workspace/assets/js/utils.js"></script>
+  <script src="/workspace/assets/js/data.js"></script>
+  <script src="/workspace/assets/js/catalog.js"></script>
+</body>
+</html>

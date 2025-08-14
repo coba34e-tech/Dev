@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="pageTitle">Detail Produk</title>
+  <meta name="description" id="metaDescription" content="Detail produk afiliasi: harga, rating, deskripsi, dan link promosi.">
+  <link rel="canonical" href="https://example.com/produk.html">
+  <link rel="stylesheet" href="/workspace/assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header compact">
+    <div class="container nav">
+      <a href="/workspace/index.html" class="brand"><span class="brand-mark">KA</span><span class="brand-name">Katalog Afiliasi</span></a>
+      <a href="/workspace/katalog.html" class="btn small">Kembali ke Katalog</a>
+    </div>
+  </header>
+
+  <main class="container" id="productRoot">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/workspace/index.html">Beranda</a>
+      <span aria-hidden="true">›</span>
+      <a href="/workspace/katalog.html">Katalog</a>
+      <span aria-hidden="true">›</span>
+      <span id="bcProduct">Produk</span>
+    </nav>
+
+    <article class="product-detail" itemscope itemtype="https://schema.org/Product">
+      <div class="gallery">
+        <img id="productImage" itemprop="image" alt="Gambar produk" src="" width="800" height="600" loading="eager">
+      </div>
+      <div class="summary">
+        <h1 id="productName" itemprop="name">Produk</h1>
+        <p class="muted" id="productBrand"></p>
+        <div class="price-rating">
+          <span id="productPrice" class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer"></span>
+          <span id="productRating" class="rating"></span>
+        </div>
+        <p id="productDesc" itemprop="description" class="lead"></p>
+        <div class="cta">
+          <a id="productLink" class="btn" target="_blank" rel="nofollow sponsored noopener">Dapatkan Promo</a>
+          <button id="copyLink" class="btn ghost">Salin Link</button>
+        </div>
+        <ul class="meta">
+          <li><strong>Kategori:</strong> <span id="productCategory"></span></li>
+          <li><strong>Jaringan:</strong> <span id="productNetwork"></span></li>
+          <li><strong>Komisi:</strong> <span id="productCommission"></span></li>
+          <li><strong>Tag:</strong> <span id="productTags"></span></li>
+        </ul>
+      </div>
+    </article>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Produk Terkait</h2>
+        <a class="link" href="/workspace/katalog.html">Lihat semua</a>
+      </div>
+      <div id="relatedGrid" class="product-grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Katalog Afiliasi</p>
+    </div>
+  </footer>
+
+  <script src="/workspace/assets/js/utils.js"></script>
+  <script src="/workspace/assets/js/data.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const app = window.getAppData();
+    const product = app.products.find(p => String(p.id) === String(id));
+    const titleEl = document.getElementById('pageTitle');
+    const metaDesc = document.getElementById('metaDescription');
+    const bcProduct = document.getElementById('bcProduct');
+
+    if (!product) {
+      document.getElementById('productRoot').innerHTML = '<h1>Produk tidak ditemukan</h1><p class="muted">Coba kembali ke <a href="/workspace/katalog.html">katalog</a>.</p>';
+      titleEl.textContent = 'Produk tidak ditemukan';
+      return;
+    }
+
+    titleEl.textContent = product.name + ' | Katalog Afiliasi';
+    metaDesc.setAttribute('content', product.description || '');
+    bcProduct.textContent = product.name;
+
+    document.getElementById('productImage').src = product.image;
+    document.getElementById('productImage').alt = product.name;
+    document.getElementById('productName').textContent = product.name;
+    document.getElementById('productBrand').textContent = product.brand || '';
+
+    const priceEl = document.getElementById('productPrice');
+    priceEl.innerHTML = '<span itemprop="priceCurrency" content="IDR"></span><span itemprop="price" content="' + (product.price || 0) + '">' + window.formatCurrencyIDR(product.price || 0) + '</span>';
+
+    const ratingEl = document.getElementById('productRating');
+    const rating = product.rating || 0;
+    ratingEl.textContent = '★'.repeat(Math.round(rating)) + ' (' + rating.toFixed(1) + ')';
+
+    document.getElementById('productDesc').textContent = product.description || '';
+    const link = document.getElementById('productLink');
+    link.href = product.link;
+
+    document.getElementById('productCategory').textContent = app.categories.find(c => c.id === product.categoryId)?.name || '-';
+    document.getElementById('productNetwork').textContent = product.network || '-';
+    document.getElementById('productCommission').textContent = product.commission?.percent ? (product.commission.percent + '%') : (product.commission?.fixed ? window.formatCurrencyIDR(product.commission.fixed) : '-');
+    document.getElementById('productTags').textContent = (product.tags || []).join(', ');
+
+    document.getElementById('copyLink').addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(product.link); alert('Link disalin'); } catch (e) { alert('Gagal menyalin'); }
+    });
+
+    const related = app.products.filter(p => p.categoryId === product.categoryId && p.id !== product.id).slice(0, 8);
+    const grid = document.getElementById('relatedGrid');
+    grid.innerHTML = related.map(window.renderProductCard).join('');
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": product.name,
+      "image": product.image,
+      "brand": product.brand,
+      "description": product.description,
+      "aggregateRating": {"@type": "AggregateRating", "ratingValue": (product.rating||0), "reviewCount": (product.reviews||0)},
+      "offers": {"@type": "Offer", "priceCurrency": "IDR", "price": product.price||0, "url": product.link}
+    };
+    const ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.text = JSON.stringify(jsonLd);
+    document.head.appendChild(ld);
+  });
+  </script>
+</body>
+</html>

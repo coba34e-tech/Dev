@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontak | Katalog Afiliasi</title>
+  <meta name="description" content="Hubungi kami untuk pertanyaan dan kerja sama.">
+  <link rel="stylesheet" href="/workspace/assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header compact">
+    <div class="container nav">
+      <a href="/workspace/index.html" class="brand"><span class="brand-mark">KA</span><span class="brand-name">Katalog Afiliasi</span></a>
+      <a href="/workspace/katalog.html" class="btn small">Katalog</a>
+    </div>
+  </header>
+  <main class="container section">
+    <h1>Kontak</h1>
+    <form id="contactForm" class="card" style="max-width:520px;">
+      <label>Nama</label>
+      <input id="cName" required>
+      <label>Email</label>
+      <input id="cEmail" type="email" required>
+      <label>Pesan</label>
+      <textarea id="cMsg" rows="4" required></textarea>
+      <div style="margin-top:12px;">
+        <button class="btn" type="submit">Kirim</button>
+      </div>
+      <p id="cStatus" class="muted"></p>
+    </form>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Katalog Afiliasi</p>
+    </div>
+  </footer>
+  <script src="/workspace/assets/js/utils.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      window.updateYear();
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const name = document.getElementById('cName').value.trim();
+        const email = document.getElementById('cEmail').value.trim();
+        const msg = document.getElementById('cMsg').value.trim();
+        if (!name || !email || !msg) return;
+        const msgs = window.loadLocal('contactMsgs', []);
+        msgs.push({ name, email, msg, at: new Date().toISOString() });
+        window.saveLocal('contactMsgs', msgs);
+        document.getElementById('cStatus').textContent = 'Terima kasih! Pesan Anda terkirim.';
+        form.reset();
+      });
+    });
+  </script>
+</body>
+</html>
