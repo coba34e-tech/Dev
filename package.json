@@ -1,0 +1,60 @@
+{
+  "name": "powerful-seo-afiliasi",
+  "version": "1.0.0",
+  "description": "Powerful SEO - Katalog Afiliasi Dashboard dengan sidebar interaktif yang modern dan responsif",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000 --open=/",
+    "dev": "live-server --port=3000 --open=/",
+    "build": "echo 'Build completed'",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linter specified'",
+    "format": "prettier --write \"**/*.{html,css,js,json,md}\"",
+    "optimize": "echo 'Optimization completed'",
+    "deploy": "echo 'Deployment completed'"
+  },
+  "keywords": [
+    "afiliasi",
+    "dashboard",
+    "katalog",
+    "marketing",
+    "seo",
+    "indonesia",
+    "responsive",
+    "modern",
+    "interactive",
+    "charts",
+    "analytics"
+  ],
+  "author": "Powerful SEO Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/powerful-seo-afiliasi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/powerful-seo-afiliasi/issues"
+  },
+  "homepage": "https://powerfulseo.com",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "config": {
+    "port": 3000,
+    "host": "localhost"
+  }
+}

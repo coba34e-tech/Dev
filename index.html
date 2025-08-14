@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Katalog Afiliasi Terlengkap - Temukan produk dan layanan terbaik untuk bisnis Anda">
+    <meta name="keywords" content="afiliasi, katalog, produk, bisnis, marketing, komisi">
+    <meta name="author" content="Powerful SEO Afiliasi">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Katalog Afiliasi Terlengkap">
+    <meta property="og:description" content="Temukan produk dan layanan terbaik untuk bisnis Anda">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://powerfulseo-afiliasi.com">
+    <title>Powerful SEO - Katalog Afiliasi Terlengkap</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-rocket"></i> Powerful SEO</h1>
+                    <span>Katalog Afiliasi Terlengkap</span>
+                </div>
+                <nav class="nav-desktop">
+                    <ul>
+                        <li><a href="#home" class="active">Beranda</a></li>
+                        <li><a href="#katalog">Katalog</a></li>
+                        <li><a href="#kategori">Kategori</a></li>
+                        <li><a href="#tentang">Tentang</a></li>
+                        <li><a href="#kontak">Kontak</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Masuk
+                    </button>
+                    <button class="btn btn-secondary" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> Daftar
+                    </button>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="navMobile">
+        <ul>
+            <li><a href="#home" class="active">Beranda</a></li>
+            <li><a href="#katalog">Katalog</a></li>
+            <li><a href="#kategori">Kategori</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Sidebar Dashboard -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-tachometer-alt"></i> Dashboard</h3>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- User Profile -->
+                <div class="user-profile">
+                    <div class="avatar">
+                        <img src="https://via.placeholder.com/60x60/4F46E5/FFFFFF?text=U" alt="User Avatar" id="userAvatar">
+                    </div>
+                    <div class="user-info">
+                        <h4 id="userName">Selamat Datang</h4>
+                        <span id="userEmail">Silakan login</span>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-value" id="totalEarnings">Rp 0</span>
+                            <span class="stat-label">Total Pendapatan</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-value" id="totalSales">0</span>
+                            <span class="stat-label">Total Penjualan</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-value" id="activeLinks">0</span>
+                            <span class="stat-label">Link Aktif</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li>
+                            <a href="#dashboard" class="sidebar-link active" data-section="dashboard">
+                                <i class="fas fa-home"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#products" class="sidebar-link" data-section="products">
+                                <i class="fas fa-box"></i>
+                                <span>Produk</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#analytics" class="sidebar-link" data-section="analytics">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Analitik</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#commissions" class="sidebar-link" data-section="commissions">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Komisi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#marketing" class="sidebar-link" data-section="marketing">
+                                <i class="fas fa-bullhorn"></i>
+                                <span>Marketing</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tools" class="sidebar-link" data-section="tools">
+                                <i class="fas fa-tools"></i>
+                                <span>Tools</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#settings" class="sidebar-link" data-section="settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Pengaturan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h4>Quick Actions</h4>
+                    <button class="btn btn-sm btn-primary" id="addProductBtn">
+                        <i class="fas fa-plus"></i> Tambah Produk
+                    </button>
+                    <button class="btn btn-sm btn-secondary" id="generateLinkBtn">
+                        <i class="fas fa-link"></i> Generate Link
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard Area -->
+        <div class="dashboard-main" id="dashboardMain">
+            <!-- Dashboard Toggle Button -->
+            <button class="dashboard-toggle" id="dashboardToggle">
+                <i class="fas fa-bars"></i> Dashboard
+            </button>
+
+            <!-- Content Sections -->
+            <div class="content-sections">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+                        <p>Selamat datang di dashboard afiliasi Anda</p>
+                    </div>
+
+                    <!-- Dashboard Cards -->
+                    <div class="dashboard-cards">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Pendapatan Hari Ini</h3>
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-value" id="todayEarnings">Rp 0</span>
+                                <span class="card-change positive">+0%</span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Klik Hari Ini</h3>
+                                <i class="fas fa-mouse-pointer"></i>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-value" id="todayClicks">0</span>
+                                <span class="card-change positive">+0%</span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Konversi Rate</h3>
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-value" id="conversionRate">0%</span>
+                                <span class="card-change positive">+0%</span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Ranking</h3>
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-value" id="ranking">#0</span>
+                                <span class="card-change positive">+0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-activity">
+                        <h3>Aktivitas Terbaru</h3>
+                        <div class="activity-list" id="activityList">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>Penjualan produk "Hosting Premium"</p>
+                                    <span>Komisi: Rp 50.000</span>
+                                </div>
+                                <span class="activity-time">2 jam yang lalu</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>Link afiliasi diklik</p>
+                                    <span>Produk: "Domain .com"</span>
+                                </div>
+                                <span class="activity-time">5 jam yang lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Products Section -->
+                <section id="products" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-box"></i> Manajemen Produk</h2>
+                        <p>Kelola semua produk afiliasi Anda</p>
+                    </div>
+
+                    <div class="products-controls">
+                        <div class="search-box">
+                            <input type="text" placeholder="Cari produk..." id="productSearch">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="filter-controls">
+                            <select id="categoryFilter">
+                                <option value="">Semua Kategori</option>
+                                <option value="hosting">Hosting</option>
+                                <option value="domain">Domain</option>
+                                <option value="software">Software</option>
+                                <option value="course">Course</option>
+                            </select>
+                            <select id="statusFilter">
+                                <option value="">Semua Status</option>
+                                <option value="active">Aktif</option>
+                                <option value="inactive">Tidak Aktif</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-bar"></i> Analitik & Laporan</h2>
+                        <p>Lihat performa afiliasi Anda</p>
+                    </div>
+
+                    <div class="analytics-charts">
+                        <div class="chart-container">
+                            <h3>Pendapatan Bulanan</h3>
+                            <canvas id="earningsChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Traffic & Konversi</h3>
+                            <canvas id="trafficChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="analytics-metrics">
+                        <div class="metric-card">
+                            <h4>Top Performing Products</h4>
+                            <div class="metric-list" id="topProducts">
+                                <!-- Top products will be loaded here -->
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <h4>Geographic Performance</h4>
+                            <div class="metric-list" id="geoPerformance">
+                                <!-- Geographic data will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Commissions Section -->
+                <section id="commissions" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-money-bill-wave"></i> Manajemen Komisi</h2>
+                        <p>Kelola komisi dan pembayaran</p>
+                    </div>
+
+                    <div class="commission-summary">
+                        <div class="summary-card">
+                            <h3>Total Komisi</h3>
+                            <span class="amount" id="totalCommission">Rp 0</span>
+                        </div>
+                        <div class="summary-card">
+                            <h3>Komisi Pending</h3>
+                            <span class="amount pending" id="pendingCommission">Rp 0</span>
+                        </div>
+                        <div class="summary-card">
+                            <h3>Komisi Dibayar</h3>
+                            <span class="amount paid" id="paidCommission">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <div class="commission-history">
+                        <h3>Riwayat Komisi</h3>
+                        <div class="history-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Produk</th>
+                                        <th>Komisi</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="commissionHistory">
+                                    <!-- Commission history will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Marketing Section -->
+                <section id="marketing" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-bullhorn"></i> Marketing Tools</h2>
+                        <p>Alat marketing untuk meningkatkan penjualan</p>
+                    </div>
+
+                    <div class="marketing-tools">
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <h3>Link Generator</h3>
+                            <p>Buat link afiliasi custom untuk setiap produk</p>
+                            <button class="btn btn-primary">Generate Link</button>
+                        </div>
+
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <h3>Banner Creator</h3>
+                            <p>Buat banner menarik untuk kampanye marketing</p>
+                            <button class="btn btn-primary">Buat Banner</button>
+                        </div>
+
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email Templates</h3>
+                            <p>Template email marketing yang sudah dioptimasi</p>
+                            <button class="btn btn-primary">Lihat Template</button>
+                        </div>
+
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <h3>Campaign Tracker</h3>
+                            <p>Lacak performa kampanye marketing Anda</p>
+                            <button class="btn btn-primary">Track Campaign</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tools Section -->
+                <section id="tools" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-tools"></i> Tools & Utilities</h2>
+                        <p>Alat bantu untuk afiliasi</p>
+                    </div>
+
+                    <div class="tools-grid">
+                        <div class="tool-item">
+                            <h3>URL Shortener</h3>
+                            <div class="tool-input">
+                                <input type="text" placeholder="Masukkan URL panjang..." id="longUrl">
+                                <button class="btn btn-primary" id="shortenBtn">Shorten</button>
+                            </div>
+                            <div class="shortened-url" id="shortenedUrl"></div>
+                        </div>
+
+                        <div class="tool-item">
+                            <h3>Commission Calculator</h3>
+                            <div class="tool-input">
+                                <input type="number" placeholder="Harga produk" id="productPrice">
+                                <input type="number" placeholder="Persentase komisi (%)" id="commissionRate">
+                                <button class="btn btn-primary" id="calculateBtn">Hitung</button>
+                            </div>
+                            <div class="calculation-result" id="calculationResult"></div>
+                        </div>
+
+                        <div class="tool-item">
+                            <h3>ROI Calculator</h3>
+                            <div class="tool-input">
+                                <input type="number" placeholder="Biaya iklan" id="adCost">
+                                <input type="number" placeholder="Pendapatan" id="revenue">
+                                <button class="btn btn-primary" id="roiBtn">Hitung ROI</button>
+                            </div>
+                            <div class="calculation-result" id="roiResult"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-cog"></i> Pengaturan</h2>
+                        <p>Kelola pengaturan akun dan preferensi</p>
+                    </div>
+
+                    <div class="settings-tabs">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-tab="profile">Profil</button>
+                            <button class="tab-btn" data-tab="account">Akun</button>
+                            <button class="tab-btn" data-tab="notifications">Notifikasi</button>
+                            <button class="tab-btn" data-tab="security">Keamanan</button>
+                        </div>
+
+                        <div class="tab-content">
+                            <div id="profile" class="tab-pane active">
+                                <form class="settings-form">
+                                    <div class="form-group">
+                                        <label>Nama Lengkap</label>
+                                        <input type="text" value="John Doe" id="fullName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" value="john@example.com" id="userEmailInput">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Telepon</label>
+                                        <input type="tel" value="+62 812-3456-7890" id="phone">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                </form>
+                            </div>
+
+                            <div id="account" class="tab-pane">
+                                <form class="settings-form">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" value="johndoe" id="username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Timezone</label>
+                                        <select id="timezone">
+                                            <option value="Asia/Jakarta">Asia/Jakarta (WIB)</option>
+                                            <option value="Asia/Makassar">Asia/Makassar (WITA)</option>
+                                            <option value="Asia/Jayapura">Asia/Jayapura (WIT)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Currency</label>
+                                        <select id="currency">
+                                            <option value="IDR">Indonesian Rupiah (IDR)</option>
+                                            <option value="USD">US Dollar (USD)</option>
+                                            <option value="EUR">Euro (EUR)</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                </form>
+                            </div>
+
+                            <div id="notifications" class="tab-pane">
+                                <div class="notification-settings">
+                                    <div class="setting-item">
+                                        <label>Email Notifications</label>
+                                        <input type="checkbox" id="emailNotif" checked>
+                                    </div>
+                                    <div class="setting-item">
+                                        <label>SMS Notifications</label>
+                                        <input type="checkbox" id="smsNotif">
+                                    </div>
+                                    <div class="setting-item">
+                                        <label>Push Notifications</label>
+                                        <input type="checkbox" id="pushNotif" checked>
+                                    </div>
+                                    <div class="setting-item">
+                                        <label>Weekly Reports</label>
+                                        <input type="checkbox" id="weeklyReports" checked>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="security" class="tab-pane">
+                                <form class="settings-form">
+                                    <div class="form-group">
+                                        <label>Password Lama</label>
+                                        <input type="password" id="oldPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password Baru</label>
+                                        <input type="password" id="newPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Konfirmasi Password</label>
+                                        <input type="password" id="confirmPassword">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Ubah Password</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Login</h3>
+                <button class="modal-close" id="loginModalClose">&times;</button>
+            </div>
+            <form class="login-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Masukkan email Anda" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Masukkan password Anda" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p class="form-footer">
+                Belum punya akun? <a href="#" id="showRegisterModal">Daftar disini</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Daftar</h3>
+                <button class="modal-close" id="registerModalClose">&times;</button>
+            </div>
+            <form class="register-form">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" placeholder="Masukkan nama lengkap Anda" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Masukkan email Anda" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Masukkan password Anda" required>
+                </div>
+                <div class="form-group">
+                    <label>Konfirmasi Password</label>
+                    <input type="password" placeholder="Konfirmasi password Anda" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Daftar</button>
+            </form>
+            <p class="form-footer">
+                Sudah punya akun? <a href="#" id="showLoginModal">Login disini</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Powerful SEO</h3>
+                    <p>Platform afiliasi terdepan untuk bisnis digital Indonesia</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Produk</h4>
+                    <ul>
+                        <li><a href="#">Hosting</a></li>
+                        <li><a href="#">Domain</a></li>
+                        <li><a href="#">Software</a></li>
+                        <li><a href="#">Course</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="#">Program Afiliasi</a></li>
+                        <li><a href="#">Marketing Tools</a></li>
+                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@powerfulseo.com</li>
+                        <li><i class="fas fa-phone"></i> +62 21 1234 5678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Powerful SEO. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/charts.js"></script>
+</body>
+</html>
