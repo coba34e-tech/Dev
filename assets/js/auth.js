@@ -1,33 +1,41 @@
-// Simple front-only auth mock (localStorage based)
+// Simple front-only auth mock (sessionStorage/localStorage based)
 (function() {
   const AUTH_KEY = 'alldream_auth_user';
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  function saveSession(user) {
-    localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+  function saveSession(user, persist) {
+    try {
+      const payload = JSON.stringify(user);
+      if (persist) localStorage.setItem(AUTH_KEY, payload);
+      else sessionStorage.setItem(AUTH_KEY, payload);
+    } catch {}
   }
 
   function getSession() {
-    try { return JSON.parse(localStorage.getItem(AUTH_KEY) || 'null'); } catch { return null; }
+    try {
+      const raw = sessionStorage.getItem(AUTH_KEY) || localStorage.getItem(AUTH_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
   }
 
   function clearSession() {
-    localStorage.removeItem(AUTH_KEY);
+    try { sessionStorage.removeItem(AUTH_KEY); } catch {}
+    try { localStorage.removeItem(AUTH_KEY); } catch {}
   }
 
   // Expose globally for other scripts
   window.AllDreamAuth = {
     isAuthenticated: function() { return !!getSession(); },
     getUser: getSession,
-    login: function(email, password) {
+    login: function(email, password, persist) {
       // Demo user
       const demoEmail = 'demo@alldream.id';
       const demoPass = 'demo123';
       const ok = (email === demoEmail && password === demoPass);
       if (ok) {
         const user = { email: demoEmail, name: 'Demo User' };
-        saveSession(user);
+        saveSession(user, !!persist);
         return { ok: true, user };
       }
       return { ok: false };
@@ -50,13 +58,8 @@
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
         const remember = document.getElementById('remember').checked;
-        const res = window.AllDreamAuth.login(email, password);
+        const res = window.AllDreamAuth.login(email, password, remember);
         if (res.ok) {
-          // Optionally persist longer when remember is checked
-          if (!remember) {
-            // mimic session by clearing on tab close
-            window.addEventListener('beforeunload', () => window.AllDreamAuth.logout());
-          }
           window.location.href = 'dasbor.html';
         } else {
           errorEl.classList.remove('hidden');
