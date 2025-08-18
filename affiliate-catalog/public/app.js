@@ -4,8 +4,13 @@
 
   const themeBtn = document.getElementById('btn-theme');
   if (themeBtn) {
+    // apply initial theme
+    const saved = localStorage.getItem('afh_theme');
+    if (saved === 'light') document.documentElement.classList.add('light');
     themeBtn.addEventListener('click', () => {
-      document.documentElement.classList.toggle('light');
+      const html = document.documentElement;
+      html.classList.toggle('light');
+      localStorage.setItem('afh_theme', html.classList.contains('light') ? 'light' : 'dark');
     });
   }
 
