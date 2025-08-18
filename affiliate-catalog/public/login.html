@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Masuk - AfiliasiHub</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="logo">Afiliasi<span>Hub</span></div>
+          <nav class="main-nav">
+            <a href="/index.html">Katalog</a>
+            <a href="/dashboard.html">Dasbor</a>
+            <a href="/admin.html">Admin</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main class="container" style="max-width:560px; padding:40px 20px;">
+      <h1>Masuk Admin</h1>
+      <p style="color:var(--muted);">Gunakan kredensial admin untuk mengelola produk dan melihat statistik.</p>
+      <form id="login-form" style="margin-top:16px; display:grid; gap:12px;">
+        <div>
+          <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Email</label>
+          <input id="email" type="email" required style="width:100%; padding:12px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" placeholder="admin@local" />
+        </div>
+        <div>
+          <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Password</label>
+          <input id="password" type="password" required style="width:100%; padding:12px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" placeholder="admin123" />
+        </div>
+        <button class="button" type="submit">Masuk</button>
+        <div id="login-error" class="hidden" style="color:#ff8a8a;">Email atau password salah.</div>
+      </form>
+    </main>
+    <script src="/app.js"></script>
+    <script src="/auth.js"></script>
+  </body>
+  </html>
+

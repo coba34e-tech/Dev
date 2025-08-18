@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin - AfiliasiHub</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="logo">Afiliasi<span>Hub</span></div>
+          <nav class="main-nav">
+            <a href="/index.html">Katalog</a>
+            <a href="/dashboard.html">Dasbor</a>
+            <a class="active" href="/admin.html">Admin</a>
+          </nav>
+        </div>
+        <div class="actions">
+          <button id="btn-theme">🌓</button>
+          <button id="btn-logout" class="button ghost">Keluar</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" style="padding:20px 0 40px;">
+      <h1>Kelola Produk</h1>
+      <p style="color:var(--muted);">Tambah, ubah, dan hapus produk katalog afiliasi.</p>
+
+      <section class="card" style="margin-top:14px;">
+        <div class="body">
+          <div class="title">Tambah / Ubah Produk</div>
+          <form id="product-form" style="display:grid; grid-template-columns: repeat(12, 1fr); gap:10px; margin-top:10px;">
+            <input type="hidden" id="prod-id" />
+            <div style="grid-column: span 6;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Judul</label>
+              <input id="prod-title" required style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 6;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Marketplace</label>
+              <select id="prod-market" style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);">
+                <option>Shopee</option>
+                <option>Tokopedia</option>
+                <option>Lazada</option>
+                <option>TikTok Shop</option>
+                <option>Blibli</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div style="grid-column: span 6;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Kategori</label>
+              <input id="prod-category" placeholder="Fashion, Elektronik, dll" style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 6;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Harga (Rp)</label>
+              <input id="prod-price" type="number" min="0" required style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 6;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Rating</label>
+              <input id="prod-rating" type="number" step="0.1" min="0" max="5" placeholder="4.5" style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 6;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Reviews</label>
+              <input id="prod-reviews" type="number" min="0" placeholder="150" style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 6;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Komisi (%)</label>
+              <input id="prod-commission" type="number" step="0.1" min="0" placeholder="8" style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 6;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Popularitas</label>
+              <input id="prod-popularity" type="number" min="0" max="100" placeholder="80" style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 12;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">URL Gambar</label>
+              <input id="prod-image" placeholder="https://..." style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 12;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">URL Afiliasi</label>
+              <input id="prod-affurl" placeholder="https://..." style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);" />
+            </div>
+            <div style="grid-column: span 12;">
+              <label style="display:block; font-size:12px; color:var(--muted); margin-bottom:6px;">Deskripsi</label>
+              <textarea id="prod-desc" rows="3" style="width:100%; padding:10px; border-radius:10px; background:var(--card); border:1px solid var(--border); color:var(--text);"></textarea>
+            </div>
+            <div style="grid-column: span 12; display:flex; gap:10px;">
+              <button class="button" type="submit">Simpan</button>
+              <button id="btn-reset" class="button ghost" type="button">Reset</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section style="margin-top:14px;">
+        <div id="admin-list" class="grid"></div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+    <script src="/admin.js"></script>
+  </body>
+  </html>
+

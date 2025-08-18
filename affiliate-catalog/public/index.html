@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Katalog Afiliasi - Multi Marketplace</title>
+    <meta name="description" content="Katalog produk afiliasi Shopee, Tokopedia, Lazada, TikTok Shop dan lainnya dengan dasbor pelacakan profesional." />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="logo">Afiliasi<span>Hub</span></div>
+          <nav class="main-nav">
+            <a href="/index.html" class="active">Katalog</a>
+            <a href="/dashboard.html">Dasbor</a>
+            <a href="/admin.html">Admin</a>
+          </nav>
+        </div>
+        <div class="actions">
+          <button id="btn-theme" aria-label="Toggle Theme">🌓</button>
+          <a id="btn-login" class="button" href="/login.html">Masuk</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Temukan & Promosikan Produk Terbaik</h1>
+        <p>Katalog afiliasi lintas marketplace: Shopee, Tokopedia, Lazada, TikTok Shop, dan lainnya.</p>
+        <form id="search-form" class="search-bar">
+          <input id="search-input" type="search" placeholder="Cari produk, kategori, atau merek..." />
+          <button type="submit">Cari</button>
+        </form>
+        <div class="filters">
+          <div class="filter-group">
+            <label>Marketplace</label>
+            <div class="chips">
+              <label><input type="checkbox" name="marketplace" value="Shopee" /> Shopee</label>
+              <label><input type="checkbox" name="marketplace" value="Tokopedia" /> Tokopedia</label>
+              <label><input type="checkbox" name="marketplace" value="Lazada" /> Lazada</label>
+              <label><input type="checkbox" name="marketplace" value="TikTok Shop" /> TikTok Shop</label>
+              <label><input type="checkbox" name="marketplace" value="Blibli" /> Blibli</label>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>Kategori</label>
+            <select id="category-select">
+              <option value="">Semua</option>
+              <option>Fashion</option>
+              <option>Elektronik</option>
+              <option>Rumah Tangga</option>
+              <option>Kecantikan</option>
+              <option>Makanan & Minuman</option>
+            </select>
+          </div>
+          <div class="filter-group range">
+            <label>Harga</label>
+            <input id="min-price" type="number" placeholder="Min" />
+            <span>-</span>
+            <input id="max-price" type="number" placeholder="Max" />
+          </div>
+          <div class="filter-group">
+            <label>Urutkan</label>
+            <select id="sort-select">
+              <option value="">Default</option>
+              <option value="price_asc">Harga Terendah</option>
+              <option value="price_desc">Harga Tertinggi</option>
+              <option value="rating_desc">Rating Tertinggi</option>
+              <option value="popular">Paling Populer</option>
+            </select>
+          </div>
+          <div class="filter-actions">
+            <button id="apply-filters" class="button">Terapkan</button>
+            <button id="reset-filters" class="button ghost">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div id="product-grid" class="grid"></div>
+        <div id="empty-state" class="empty hidden">Tidak ada produk ditemukan.</div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div>© <span id="year"></span> AfiliasiHub. Dibuat untuk kolaborasi afiliasi profesional.</div>
+        <div class="footer-links">
+          <a href="/dashboard.html">Dasbor</a>
+          <a href="/admin.html">Admin</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/app.js"></script>
+    <script src="/catalog.js"></script>
+  </body>
+  </html>
+
