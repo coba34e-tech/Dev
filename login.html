@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Masuk — AllDream</title>
+    <meta name="description" content="Masuk ke AllDream untuk mengakses dasbor afiliasi profesional." />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body class="page page-auth">
+    <header class="site-header minimal">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-logo" aria-hidden="true">A</span>
+          <span class="brand-text">AllDream</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="auth-main">
+      <section class="auth-card" aria-labelledby="loginTitle">
+        <h1 id="loginTitle" class="h2">Masuk ke AllDream</h1>
+        <p class="muted">Gunakan akun demo untuk mencoba: <strong>demo@alldream.id</strong> / <strong>demo123</strong></p>
+        <form id="loginForm" class="form">
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="nama@domain.com" required />
+          </div>
+          <div class="form-field">
+            <label for="password">Kata Sandi</label>
+            <input type="password" id="password" name="password" placeholder="********" minlength="6" required />
+          </div>
+          <div class="form-row">
+            <label class="checkbox">
+              <input type="checkbox" id="remember" />
+              <span>Ingat saya</span>
+            </label>
+            <a class="muted" href="#">Lupa sandi?</a>
+          </div>
+          <button class="btn btn-primary btn-full" type="submit">Masuk</button>
+          <p id="loginError" class="form-error hidden" role="alert">Email atau kata sandi tidak cocok.</p>
+        </form>
+        <p class="muted small">Dengan masuk, Anda menyetujui <a href="#">Syarat Layanan</a> dan <a href="#">Kebijakan Privasi</a>.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer minimal">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> AllDream</div>
+      </div>
+    </footer>
+
+    <script defer src="assets/js/auth.js"></script>
+  </body>
+  </html>
+

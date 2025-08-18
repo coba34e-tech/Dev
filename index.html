@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AllDream — Katalog Afiliasi</title>
+    <meta name="description" content="AllDream: Katalog produk afiliasi lintas marketplace (Shopee, Tokopedia, Lazada, TikTok Shop, dan lainnya)." />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%235a67d8' d='M32 6l24 52H8L32 6z'/%3E%3Cpath fill='%23ffffff' d='M32 16l16 36H16L32 16z'/%3E%3C/svg%3E" />
+  </head>
+  <body class="page page-index">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-logo" aria-hidden="true">A</span>
+          <span class="brand-text">AllDream</span>
+        </a>
+        <nav class="nav">
+          <a href="index.html" class="nav-link active">Beranda</a>
+          <a href="login.html" class="nav-link">Masuk</a>
+          <a href="dasbor.html" class="nav-link nav-cta">Dasbor</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <h1 class="h1">Katalog Afiliasi Lintas Marketplace</h1>
+            <p class="subhead">
+              Kurasi produk terbaik dari Shopee, Tokopedia, Lazada, TikTok Shop, dan lainnya.
+              Bagikan tautan afiliasi Anda, pantau performa di dasbor AllDream.
+            </p>
+            <form class="search" id="searchForm" role="search">
+              <input id="searchInput" type="search" placeholder="Cari produk atau toko..." aria-label="Cari" />
+              <button class="btn btn-primary" type="submit">Cari</button>
+            </form>
+            <div class="filters">
+              <div class="tabs" id="marketTabs" role="tablist" aria-label="Pilih marketplace">
+                <button class="tab active" data-marketplace="Semua" aria-selected="true">Semua</button>
+                <button class="tab" data-marketplace="Shopee">Shopee</button>
+                <button class="tab" data-marketplace="Tokopedia">Tokopedia</button>
+                <button class="tab" data-marketplace="Lazada">Lazada</button>
+                <button class="tab" data-marketplace="TikTok Shop">TikTok Shop</button>
+                <button class="tab" data-marketplace="Blibli">Blibli</button>
+                <button class="tab" data-marketplace="Bukalapak">Bukalapak</button>
+              </div>
+              <div class="sort">
+                <label for="sortSelect">Urutkan</label>
+                <select id="sortSelect" aria-label="Urutkan hasil">
+                  <option value="recent">Terbaru</option>
+                  <option value="price_asc">Harga Termurah</option>
+                  <option value="price_desc">Harga Termahal</option>
+                  <option value="rating_desc">Rating Tertinggi</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="visual-card">
+              <div class="visual-badge">Afiliasi</div>
+              <div class="visual-title">AllDream</div>
+              <div class="visual-sub">Satu tempat kelola performa</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="results">
+        <div class="container">
+          <div id="productGrid" class="grid"></div>
+          <div id="emptyState" class="empty hidden">
+            Tidak ada hasil. Coba ubah kata kunci atau filter.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> AllDream. Semua hak dilindungi.</div>
+        <div class="footer-links">
+          <a href="#">Kebijakan Privasi</a>
+          <a href="#">Syarat Layanan</a>
+        </div>
+      </div>
+    </footer>
+
+    <script defer src="assets/js/auth.js"></script>
+    <script defer src="assets/js/app.js"></script>
+  </body>
+  </html>
+
