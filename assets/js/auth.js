@@ -50,6 +50,16 @@
 
   // Login page behavior
   document.addEventListener('DOMContentLoaded', function() {
+    // If already authenticated and on login page, redirect to dashboard
+    if (document.body && document.body.classList.contains('page-auth')) {
+      try {
+        if (window.AllDreamAuth && window.AllDreamAuth.isAuthenticated && window.AllDreamAuth.isAuthenticated()) {
+          window.location.replace('dasbor.html');
+          return;
+        }
+      } catch {}
+    }
+
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
       const errorEl = document.getElementById('loginError');
