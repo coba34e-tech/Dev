@@ -1,0 +1,81 @@
+{
+  "products": [
+    {
+      "id": "prd_shopee_1",
+      "title": "Kaos Polos Premium Unisex",
+      "description": "Kaos polos bahan katun combed 30s, nyaman dan tidak panas.",
+      "price": 45000,
+      "image": "https://images.unsplash.com/photo-1520975916090-310595c8a2d9?q=80&w=800&auto=format&fit=crop",
+      "marketplace": "Shopee",
+      "category": "Fashion",
+      "rating": 4.7,
+      "reviews": 2143,
+      "commissionRate": 0.08,
+      "affiliateUrl": "https://shopee.co.id/affiliate?item=prd_shopee_1",
+      "popularity": 94,
+      "createdAt": "2024-11-01T00:00:00.000Z"
+    },
+    {
+      "id": "prd_tokopedia_1",
+      "title": "Headset Gaming RGB 7.1",
+      "description": "Headset gaming dengan surround 7.1 dan mikrofon noise-cancelling.",
+      "price": 289000,
+      "image": "https://images.unsplash.com/photo-1585386959984-a41552231658?q=80&w=800&auto=format&fit=crop",
+      "marketplace": "Tokopedia",
+      "category": "Elektronik",
+      "rating": 4.6,
+      "reviews": 987,
+      "commissionRate": 0.06,
+      "affiliateUrl": "https://tokopedia.link/affiliate?item=prd_tokopedia_1",
+      "popularity": 88,
+      "createdAt": "2024-12-01T00:00:00.000Z"
+    },
+    {
+      "id": "prd_lazada_1",
+      "title": "Air Fryer 4L Hemat Listrik",
+      "description": "Air fryer kapasitas 4 liter, anti lengket dan mudah dibersihkan.",
+      "price": 699000,
+      "image": "https://images.unsplash.com/photo-1611259186537-59c9a5f1382b?q=80&w=800&auto=format&fit=crop",
+      "marketplace": "Lazada",
+      "category": "Rumah Tangga",
+      "rating": 4.8,
+      "reviews": 523,
+      "commissionRate": 0.07,
+      "affiliateUrl": "https://www.lazada.co.id/affiliate?item=prd_lazada_1",
+      "popularity": 73,
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "prd_tiktok_1",
+      "title": "Serum Wajah Niacinamide 10%",
+      "description": "Serum pencerah wajah dengan niacinamide 10% untuk kulit lebih cerah.",
+      "price": 99000,
+      "image": "https://images.unsplash.com/photo-1556228578-8b94d0f3a6f5?q=80&w=800&auto=format&fit=crop",
+      "marketplace": "TikTok Shop",
+      "category": "Kecantikan",
+      "rating": 4.5,
+      "reviews": 1632,
+      "commissionRate": 0.09,
+      "affiliateUrl": "https://www.tiktok.com/affiliate?item=prd_tiktok_1",
+      "popularity": 91,
+      "createdAt": "2025-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "prd_blibli_1",
+      "title": "Kopi Arabica Gayo 250g",
+      "description": "Kopi arabica Gayo single origin, medium roast, 250 gram.",
+      "price": 78000,
+      "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=800&auto=format&fit=crop",
+      "marketplace": "Blibli",
+      "category": "Makanan & Minuman",
+      "rating": 4.9,
+      "reviews": 342,
+      "commissionRate": 0.05,
+      "affiliateUrl": "https://www.blibli.com/affiliate?item=prd_blibli_1",
+      "popularity": 67,
+      "createdAt": "2025-03-01T00:00:00.000Z"
+    }
+  ],
+  "events": []
+}
+
