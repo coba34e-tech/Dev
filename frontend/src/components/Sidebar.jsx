@@ -42,7 +42,7 @@ export default function Sidebar({ active, onChange }) {
           <Item key={n.key} item={n} />
         ))}
       </nav>
-      <div className="text-xs text-stone-500 px-2 pb-2">v0.1 mock</div>
+      <div className="text-xs text-stone-500 px-2 pb-2">v0.1</div>
     </div>
   );
 

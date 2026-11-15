@@ -55,13 +55,13 @@ export default function Home() {
           </div>
           <div className="mt-8 flex items-center text-stone-600 text-sm gap-2">
             <CheckCircle2 className="text-teal-700" size={16} />
-            Frontend ini memakai data mock di browser (tanpa backend) untuk demo cepat.
+            Data dashboard disimpan di backend (API + database), jadi perubahan tetap ada setelah reload.
           </div>
         </section>
       </main>
 
       <footer className="mt-20 border-t bg-white">
-        <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-stone-600">© 2025 AffiPro.SEO — Demo mock frontend</div>
+        <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-stone-600">© 2025 AffiPro.SEO</div>
       </footer>
     </div>
   );
